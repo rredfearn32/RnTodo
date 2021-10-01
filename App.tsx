@@ -40,9 +40,8 @@ const App = () => {
         title={'Add Todooooo'}
         onPress={() => {
           firebaseTodosRef.add({
-            id: Math.round(Math.random() * 100),
-            title: 'foo',
-            body: 'bar',
+            title: `To buy`,
+            body: `${Math.round(Math.random() * 100)} twiglets`,
           });
         }}
       />
