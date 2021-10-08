@@ -1,19 +1,16 @@
 import React from 'react';
 import {Button, Text, View} from 'react-native';
 import {firebaseTodosRef} from '../../App';
+import {TodoItem} from '../common/types';
 
-export type TodoItem = {
-  id: string;
-  title: string;
-  body: string;
-};
-
-type TodoProps = {
+type TodoListItemProps = {
   todo: TodoItem;
   onSave?: (editedTodo: TodoItem) => void;
 };
 
-export const TodoComponent: React.FC<TodoProps> = ({todo}: TodoProps) => {
+export const TodoListItem: React.FC<TodoListItemProps> = ({
+  todo,
+}: TodoListItemProps) => {
   return (
     <View style={{padding: 10}}>
       <View>
