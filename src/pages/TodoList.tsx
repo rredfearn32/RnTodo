@@ -1,19 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import {Button, SafeAreaView, ScrollView, View} from 'react-native';
-import {firebaseTodosRef} from '../../App';
-import {TodoItem} from '../common/types';
-import {TodoListItem} from '../components/TodoListItem';
+import { Button, SafeAreaView, ScrollView, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { RootStackParamList, firebaseTodosRef } from '../../App';
+
+import { StackNavigationProp } from '@react-navigation/stack';
+import { TodoItem } from '../common/types';
+import { TodoListItem } from '../components/TodoListItem';
+import { useNavigation } from '@react-navigation/core';
+
+type todoFormScreenProp = StackNavigationProp<RootStackParamList, 'TodoForm'>;
 
 export const TodoList = () => {
   const [todos, setTodos] = useState<TodoItem[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const formNavigation = useNavigation<todoFormScreenProp>();
+
   useEffect(() => {
-    return firebaseTodosRef.onSnapshot(querySnapshot => {
+    return firebaseTodosRef.onSnapshot((querySnapshot) => {
       const newTodos: TodoItem[] = [];
-      querySnapshot.forEach(doc => {
-        const {title, body} = doc.data();
-        newTodos.push({id: doc.id, title, body});
+      querySnapshot.forEach((doc) => {
+        const { title, body } = doc.data();
+        console.log(doc.data());
+        newTodos.push({ id: doc.id, title, body });
       });
       setTodos(newTodos);
 
@@ -27,12 +35,7 @@ export const TodoList = () => {
     <View>
       <Button
         title={'Add Todooooo'}
-        onPress={() => {
-          firebaseTodosRef.add({
-            title: `To buy`,
-            body: `${Math.round(Math.random() * 100)} twiglets`,
-          });
-        }}
+        onPress={() => formNavigation.navigate('TodoForm', {})}
       />
       <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior="automatic">

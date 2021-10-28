@@ -1,8 +1,14 @@
-import React from 'react';
-import {Text} from 'react-native';
-import {TodoItem} from '../common/types';
+import { Text, View } from 'react-native';
 
-export const TodoDetail = (nav: {route: {params: {todo: TodoItem}}}) => {
+import React from 'react';
+import { TodoItem } from '../common/types';
+
+export const TodoDetail = (nav: { route: { params: { todo: TodoItem } } }) => {
   const todo: any = nav.route.params.todo;
-  return <Text>{todo.body}</Text>;
+  return (
+    <View>
+      <Text>{todo.title}</Text>
+      <Text>{todo.body}</Text>
+    </View>
+  );
 };
